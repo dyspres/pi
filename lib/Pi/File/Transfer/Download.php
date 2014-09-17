@@ -233,6 +233,7 @@ class Download
             if (!isset($options['content_length'])) {
                 $options['content_length'] = strlen($source);
             }
+            $options['source'] = $source;
         } else {
             if (!isset($options['filename'])) {
                 $filename = str_replace('\\\\', '/', $source);
@@ -269,7 +270,8 @@ class Download
         $contentType,
         $contentLength = 0
     ) {
-        $isIe = false;
+        $isIe = Pi::service('browser')->isIe();
+        /*
         if (!empty($_SERVER['HTTP_USER_AGENT'])) {
             if (false !== strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) {
                 $isIe = true;
@@ -277,6 +279,7 @@ class Download
                 $isIe = true;
             }
         }
+        */
         if ($isIe) {
             $contentType = $contentType ?: 'application/octet-stream';
             $filename = urlencode($filename);
